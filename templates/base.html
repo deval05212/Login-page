@@ -12,31 +12,57 @@
   <div class="flex h-screen overflow-hidden">
 
     <!-- Sidebar -->
+     
     <div id="sidebar"
-  class="fixed md:static top-0 left-0 h-screen md:h-auto z-20 w-64 bg-black border-r border-gray-800 flex flex-col justify-between
+  class="fixed md:static top-0 left-0 h-screen md:h-auto z-20 w-64 bg-black border-r border-gray-800 flex flex-col
   transform -translate-x-full md:translate-x-0 transition-transform duration-300">
 
-  <!-- Profile -->
-    <div class="p-4 border-t border-gray-800">
-      <div class="flex items-center gap-3">
-        <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-xs">
-          DM
-        </div>
-        <div>
-          <p class="text-sm">Deval</p>
-          <p class="text-xs text-gray-400">Free</p>
-        </div>
-      </div>
-    </div>
   <!-- Top -->
   <div class="p-4">
-        <button class="w-full bg-gray-800 hover:bg-gray-700 rounded-lg py-2 text-sm">
-          + New Chat
-        </button>
+    <button class="w-full bg-gray-800 hover:bg-gray-700 rounded-lg py-2 text-sm">
+      + New Chat
+    </button>
+  </div>
+
+  <!-- History Section -->
+  <div class="flex-1 overflow-y-auto px-3">
+
+    <h2 class="text-xs text-gray-400 mb-2">History</h2>
+
+    {% for item in history|reverse %}
+      <div class="mb-2 p-2 bg-gray-800 hover:bg-gray-700 rounded cursor-pointer">
+
+        <!-- User Text -->
+        <p class="text-sm text-white truncate">
+          {{ item.user }}
+        </p>
+
+        <!-- Small preview -->
+        <p class="text-xs text-gray-400 truncate">
+          {{ item.bot[:40] }}...
+        </p>
+
       </div>
+    {% else %}
+      <p class="text-gray-500 text-xs">No history yet</p>
+    {% endfor %}
 
+  </div>
 
+  <!-- Profile -->
+  <div class="p-4 border-t border-gray-800">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-xs">
+        DM
+      </div>
+      <div>
+        <p class="text-sm">Deval</p>
+        <p class="text-xs text-gray-400">Free</p>
+      </div>
     </div>
+  </div>
+
+</div>
 
     <!-- Overlay (mobile) -->
     <div id="overlay"
