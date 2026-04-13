@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat UI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-900 text-white">
+
+  <div class="flex h-screen overflow-hidden">
+
+    <!-- Sidebar -->
+    <div id="sidebar"
+  class="fixed md:static top-0 left-0 h-screen md:h-auto z-20 w-64 bg-black border-r border-gray-800 flex flex-col justify-between
+  transform -translate-x-full md:translate-x-0 transition-transform duration-300">
+
+  <!-- Profile -->
+    <div class="p-4 border-t border-gray-800">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-xs">
+          DM
+        </div>
+        <div>
+          <p class="text-sm">Deval</p>
+          <p class="text-xs text-gray-400">Free</p>
+        </div>
+      </div>
+    </div>
+  <!-- Top -->
+  <div class="p-4">
+        <button class="w-full bg-gray-800 hover:bg-gray-700 rounded-lg py-2 text-sm">
+          + New Chat
+        </button>
+      </div>
+
+
+    </div>
+
+    <!-- Overlay (mobile) -->
+    <div id="overlay"
+      class="fixed inset-0 bg-black bg-opacity-50 hidden md:hidden z-10"
+      onclick="toggleSidebar()"></div>
+
+    <!-- Main Section -->
+    <div class="flex-1 flex flex-col w-full">
+
+      <!-- Top Bar (Mobile) -->
+      <div class="md:hidden flex items-center justify-between p-4 border-b border-gray-800">
+        <button onclick="toggleSidebar()" class="text-xl">☰</button>
+        <h1 class="text-sm">Chat</h1>
+      </div>
+
+      <!-- Chat Area -->
+      <div class="flex-1 overflow-y-auto px-4 sm:px-6 py-4">
+
+        {% if not response %}
+        <div class="flex items-center justify-center h-full text-gray-400 text-center">
+          <h1 class="text-base sm:text-xl max-w-md sm:max-w-xl">
+            Turn your ideas into engaging captions for social media, blogs, and more — in seconds.
+          </h1>
+        </div>
+        {% endif %}
+
+        {% if response %}
+        <div class="max-w-2xl mx-auto">
+          <div class="bg-gray-800 p-4 rounded-lg text-sm leading-relaxed whitespace-pre-line">
+            {{ response }}
+          </div>
+        </div>
+        {% endif %}
+
+      </div>
+
+      <!-- Input Box -->
+      <div class="p-3 sm:p-4 border-t border-gray-800">
+
+        <form action="/submit" method="POST" class="max-w-2xl mx-auto">
+
+          <div class="flex items-center bg-gray-800 rounded-full px-3 sm:px-4 py-2">
+
+            <!-- Input -->
+            <input 
+              type="text" 
+              name="message"
+              placeholder="Ask anything..."
+              required
+              class="flex-1 bg-transparent outline-none text-sm px-2"
+            >
+
+            <!-- Send Button -->
+            <button 
+              type="submit"
+              class="bg-white text-black px-3 sm:px-4 py-1 rounded-full text-sm hover:bg-gray-300">
+              Send
+            </button>
+
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- JS for Sidebar -->
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('overlay');
+
+      sidebar.classList.toggle('-translate-x-full');
+      overlay.classList.toggle('hidden');
+    }
+  </script>
+
+</body>
+</html>
